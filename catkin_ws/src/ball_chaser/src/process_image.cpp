@@ -38,7 +38,7 @@ void process_image_callback(const sensor_msgs::Image img)
         {   
             index = (rows*img.step)+steps; //assuming image pixels in row major order.
             
-            if (img.data[index] == white_pixel)
+            if (img.data[index] == white_pixel && img.data[index+1] == white_pixel && img.data[index+2] == white_pixel)
             {   
                 found_ball = true;            
             }
@@ -54,7 +54,7 @@ void process_image_callback(const sensor_msgs::Image img)
         if (col < imgThird) 
         {
 	    ROS_INFO("MOVE LEFT");
-            drive_robot(0.1, 0.1);
+            drive_robot(0.1, 0.5);
         } 
 
 	//In middle
@@ -68,7 +68,7 @@ void process_image_callback(const sensor_msgs::Image img)
         else if (col > 2*imgThird)
         {
 	    ROS_INFO("MOVE RIGHT");
-            drive_robot(0.1, -0.1);
+            drive_robot(0.1, -0.5);
             
         }
     }
